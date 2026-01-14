@@ -87,18 +87,24 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ======= EmailJS Contact Form Handler =======
+// ======= EmailJS Contact Form =======
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.contact-form');
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        
-        emailjs.sendForm('service_jv5witc', 'template_r1itmnu', form, 'Sr4PLOq-XnehQCvvn')
-            .then(() => {
-                alert('Message sent successfully!');
-                form.reset();
-            }, (error) => {
-                alert('Failed to send message. Please try again.');
-                console.error(error);
-            });
+
+        emailjs.sendForm(
+            'service_rhqujig',       // Your Service ID
+            'template_r1itmnu',      // Your Template ID
+            form,                    // The form element
+            'Sr4PLOq-XnehQCvvn'      // Your Public Key
+        )
+        .then(() => {
+            alert('Message sent successfully!');
+            form.reset();
+        }, (error) => {
+            alert('Failed to send message. Please try again.');
+            console.error(error);
+        });
     });
 });
