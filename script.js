@@ -50,10 +50,9 @@ function animateSkills() {
 
     if (sectionPos < screenPos) {
         skillBars.forEach(bar => {
-            const width = bar.style.width;
-            bar.style.width = width;
+            bar.style.width = bar.style.width; // Trigger CSS animation
         });
-        window.removeEventListener('scroll', animateSkills);
+        window.removeEventListener('scroll', animateSkills); // Only animate once
     }
 }
 
@@ -85,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
         section.style.opacity = 0;
         section.style.transform = 'translateY(30px)';
     });
-
     fadeInSections();
 
     // ======= EmailJS Contact Form =======
@@ -99,18 +97,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('contact-form');
 
     form.addEventListener('submit', function (e) {
-        e.preventDefault();
+        e.preventDefault(); // Stop default GET submission
 
         emailjs.sendForm(
-            'service_rhqujig',
-            'template_r1itmnu',
+            'service_rhqujig',  // Your EmailJS service ID
+            'template_r1itmnu',  // Your EmailJS template ID
             this
-        ).then(
-            () => alert('Message sent successfully'),
-            (error) => {
-                console.error(error);
-                alert('Message failed');
-            }
-        );
+        ).then(() => {
+            alert('Message sent successfully');
+            form.reset(); // Clear the form after sending
+        }, (error) => {
+            console.error('EmailJS Error:', error);
+            alert('Message failed. Please try again.');
+        });
     });
 });
