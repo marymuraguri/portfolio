@@ -89,20 +89,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // ======= EmailJS Contact Form =======
     const form = document.getElementById('contact-form');
 
+    console.log('Form element:', form);
+
     if (!form) {
         console.error('Contact form not found!');
         return;
     }
 
-    // Make sure EmailJS is loaded before initializing
+    // EmailJS should already be initialized in HTML
     if (typeof emailjs === 'undefined') {
-        console.error('EmailJS not loaded. Make sure the script is included before this JS.');
+        console.error('EmailJS still not loaded!');
         return;
     }
 
-    emailjs.init(EMAILJS_PUBLIC_KEY);
+    console.log('EmailJS available, setting up form handler');
 
     form.addEventListener('submit', function(e) {
+        console.log('Form submit event triggered');
         e.preventDefault(); // Prevent default form submission
 
         emailjs.sendForm('service_rhqujig', 'template_r1itmnu', this)

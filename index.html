@@ -19,7 +19,12 @@
     <header id="home">
         <nav class="navbar">
             <div class="logo">Mary</div>
-            <ul class="nav-links">
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#experience">Experience</a></li>
@@ -37,7 +42,7 @@
             <p>Full-Stack Developer | Building interactive web apps with Django and JS</p>
             <div class="hero-buttons">
                 <a href="#projects" class="btn">View Projects</a>
-                <a href="Mary_CV.pdf" class="btn" download>Download CV</a>
+                <a href="Mary Muraguri-Cv.pdf" class="btn" download>Download CV</a>
             </div>
         </div>
     </header>
@@ -141,26 +146,11 @@
                 </div>
             </div>
 
-            <!-- ToDo List App -->
-            <div class="project-card">
-                <img src="todo_app.png" alt="ToDo List App Screenshot">
-                <h3>ToDo List App</h3>
-                <p>A simple yet powerful task management app built with HTML, CSS, and JavaScript. Features local storage for persistence.</p>
-                <div class="project-links">
-                    <a href="https://github.com/yourusername/todo-app" target="_blank">GitHub Repo</a>
-                    <a href="https://yourtodoapp.com" target="_blank">Live Demo</a>
-                </div>
-            </div>
-
-            <!-- Calculator -->
-            <div class="project-card">
-                <img src="calculator_app.png" alt="Calculator App Screenshot">
-                <h3>Calculator</h3>
-                <p>A fully functional calculator with a clean interface, supporting basic and advanced operations.</p>
-                <div class="project-links">
-                    <a href="https://github.com/yourusername/calculator" target="_blank">GitHub Repo</a>
-                    <a href="https://yourcalculatorapp.com" target="_blank">Live Demo</a>
-                </div>
+            <!-- MedicTracker App -->
+            <div class="project-card in-progress">
+                <img src="images/MedicTracker.jpg" alt="MedicTracker App Screenshot">
+                <h3>MedicTracker <span class="badge">In Progress</span></h3>
+                <p>A comprehensive medicine tracking application designed to help users manage their medications, track dosages, and receive reminders. Built with HTML, CSS, and JavaScript, featuring local storage for data persistence and an intuitive user interface.</p>
             </div>
         </div>
     </section>
@@ -172,14 +162,14 @@
             <div class="testimonial">
                 <p>"Mary delivered an outstanding inventory system that streamlined our boutique operations. Highly recommended!"</p>
                 <div class="testimonial-author">
-                    <strong>John Doe</strong><br>
+                    <strong>Amara Nyambura</strong><br>
                     Boutique Owner
                 </div>
             </div>
             <div class="testimonial">
-                <p>"Professional, skilled, and creative. Mary's portfolio showcases impressive full-stack development skills."</p>
+                <p>"Mary demonstrates exceptional problem-solving skills and a strong commitment to writing clean, maintainable code. Her ability to learn quickly and apply new concepts is impressive. She's destined for great things in tech!"</p>
                 <div class="testimonial-author">
-                    <strong>Jane Smith</strong><br>
+                    <strong>Knoph Ayieko</strong><br>
                     Tech Mentor
                 </div>
             </div>
@@ -207,10 +197,57 @@
         <p>© 2026 Mary – Full-Stack Developer</p>
         <a href="#home" class="back-to-top">Back to Top</a>
     </footer>
-<!-- EmailJS -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/emailjs.min.js"></script>
+
+<!-- EmailJS Library -->
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+<!-- Initialize EmailJS immediately after it loads -->
+<script>
+    // Wait for EmailJS to be available
+    let attempts = 0;
+    function initEmailJS() {
+        if (typeof emailjs !== 'undefined') {
+            emailjs.init("Sr4PLOq-XnehQCvvn");
+            console.log('EmailJS initialized successfully');
+        } else {
+            attempts++;
+            if (attempts < 50) {
+                setTimeout(initEmailJS, 100);
+            } else {
+                console.error('EmailJS failed to load after 5 seconds');
+            }
+        }
+    }
+    // Give the CDN a moment to load
+    setTimeout(initEmailJS, 500);
+</script>
 
 <!-- JS -->
 <script src="script.js"></script>
-</body>
-</html>
+
+<script>
+    // Hamburger menu functionality
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    // Close menu when a link is clicked
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.navbar')) {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        }
+    });
+</script>

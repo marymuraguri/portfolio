@@ -29,6 +29,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
@@ -69,6 +73,7 @@ section {
     box-shadow: 0 2px 10px rgba(0,0,0,0.5);
     z-index: 1000;
     backdrop-filter: blur(10px);
+    gap: 20px;
 }
 
 .navbar .logo {
@@ -102,11 +107,22 @@ section {
     font-size: 1.5rem;
     color: var(--text-color);
     cursor: pointer;
-    transition: color 0.3s;
+    transition: all 0.3s;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .theme-toggle:hover {
     color: var(--accent-color);
+    background-color: var(--card-bg);
+    transform: scale(1.1);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
 }
 
 /* ======= Hero Section ======= */
@@ -281,11 +297,14 @@ section {
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     text-align: center;
-    transition: transform 0.3s;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
 }
 
 .skill:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+    border-bottom-color: var(--accent-color);
 }
 
 .skill i {
@@ -344,12 +363,29 @@ section {
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
 }
 
 .project-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    border-color: var(--accent-color);
+}
+
+.project-card.in-progress {
+    border-color: var(--secondary-accent);
+}
+
+.project-card .badge {
+    display: inline-block;
+    background-color: var(--secondary-accent);
+    color: var(--bg-color);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-left: 10px;
 }
 
 .project-card img {
@@ -527,6 +563,46 @@ footer {
     color: var(--secondary-accent);
 }
 
+/* ======= Hamburger Menu ======= */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    gap: 5px;
+    z-index: 1001;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.hamburger:hover {
+    background-color: var(--card-bg);
+}
+
+.hamburger span {
+    width: 28px;
+    height: 3px;
+    background-color: var(--accent-color);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 10px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -9px);
+}
+
 /* ======= Responsive ======= */
 @media (max-width: 768px) {
     .about-container {
@@ -543,7 +619,60 @@ footer {
     }
 
     .navbar {
+        padding: 20px;
+        position: relative;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+    .navbar .logo {
+        flex: 1;
+    }
+
+    .hamburger {
+        display: flex;
+        order: 2;
+    }
+
+    .theme-toggle {
+        order: 3;
+        position: static;
+    }
+
+    section {
+        padding: 60px 20px;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
         flex-direction: column;
-        gap: 15px;
+        gap: 0;
+        background-color: var(--navbar-bg);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .nav-links.active {
+        max-height: 500px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    }
+
+    .nav-links li {
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-links li a {
+        display: block;
+    }
+
+    .skills-container,
+    .projects-container,
+    .experience-container {
+        grid-template-columns: 1fr;
     }
 }
