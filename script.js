@@ -1,3 +1,6 @@
+// ======= PUBLIC KEY (EmailJS) =======
+const EMAILJS_PUBLIC_KEY = "Sr4PLOq-XnehQCvvn";
+
 // ======= Theme Toggle =======
 const themeToggle = document.getElementById('theme-toggle');
 const body = document.body;
@@ -25,14 +28,14 @@ themeToggle.addEventListener('click', () => {
         themeIcon.classList.add('fa-sun');
     }
 });
+
+// ======= Smooth Scroll =======
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        if(target) {
-            target.scrollIntoView({
-                behavior: 'smooth'
-            });
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
         }
     });
 });
@@ -47,16 +50,16 @@ function animateSkills() {
 
     if (sectionPos < screenPos) {
         skillBars.forEach(bar => {
-            const width = bar.style.width; // Already set in HTML inline
+            const width = bar.style.width;
             bar.style.width = width;
         });
-        window.removeEventListener('scroll', animateSkills); // Animate only once
+        window.removeEventListener('scroll', animateSkills);
     }
 }
 
 window.addEventListener('scroll', animateSkills);
 
-// ======= Optional: Simple Fade-In for Sections =======
+// ======= Fade-In Sections =======
 const sections = document.querySelectorAll('section');
 
 function fadeInSections() {
@@ -64,7 +67,7 @@ function fadeInSections() {
         const sectionPos = section.getBoundingClientRect().top;
         const screenPos = window.innerHeight / 1.2;
 
-        if(sectionPos < screenPos) {
+        if (sectionPos < screenPos) {
             section.style.opacity = 1;
             section.style.transform = 'translateY(0)';
             section.style.transition = 'all 0.8s ease-out';
@@ -74,28 +77,24 @@ function fadeInSections() {
 
 window.addEventListener('scroll', fadeInSections);
 
-// ======= Initial Setup =======
+// ======= DOM Ready =======
 document.addEventListener('DOMContentLoaded', () => {
-    // Set initial opacity for sections
+
+    // Initial fade setup
     sections.forEach(section => {
         section.style.opacity = 0;
         section.style.transform = 'translateY(30px)';
     });
 
-    // Trigger fade-in for visible sections
     fadeInSections();
-});
 
-// ======= EmailJS Contact Form Handler =======
-// ======= EmailJS Contact Form =======
-document.addEventListener('DOMContentLoaded', function () {
-
+    // ======= EmailJS Contact Form =======
     if (typeof emailjs === 'undefined') {
         console.error('EmailJS not loaded');
         return;
     }
 
-    emailjs.init('Sr4PLOq-XnehQCvvn');
+    emailjs.init(EMAILJS_PUBLIC_KEY);
 
     const form = document.getElementById('contact-form');
 
