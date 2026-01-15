@@ -87,28 +87,32 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeInSections();
 
     // ======= EmailJS Contact Form =======
+    const form = document.getElementById('contact-form');
+
+    if (!form) {
+        console.error('Contact form not found!');
+        return;
+    }
+
+    // Make sure EmailJS is loaded before initializing
     if (typeof emailjs === 'undefined') {
-        console.error('EmailJS not loaded');
+        console.error('EmailJS not loaded. Make sure the script is included before this JS.');
         return;
     }
 
     emailjs.init(EMAILJS_PUBLIC_KEY);
 
-    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent default form submission
 
-    form.addEventListener('submit', function (e) {
-        e.preventDefault(); // Stop default GET submission
-
-        emailjs.sendForm(
-            'service_rhqujig',  // Your EmailJS service ID
-            'template_r1itmnu',  // Your EmailJS template ID
-            this
-        ).then(() => {
-            alert('Message sent successfully');
-            form.reset(); // Clear the form after sending
-        }, (error) => {
-            console.error('EmailJS Error:', error);
-            alert('Message failed. Please try again.');
-        });
+        emailjs.sendForm('service_rhqujig', 'template_r1itmnu', this)
+            .then(() => {
+                alert('Message sent successfully!');
+                form.reset(); // Clear form fields
+            })
+            .catch(error => {
+                console.error('EmailJS Error:', error);
+                alert('Message failed. Please try again.');
+            });
     });
 });
